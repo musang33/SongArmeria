@@ -1,5 +1,7 @@
+
 plugins {
     id 'java'
+    id "com.google.protobuf" version "0.8.18"
     id 'org.springframework.boot' version '2.7.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
@@ -11,7 +13,38 @@ repositories {
     mavenCentral()
 }
 
+protobuf {
+    // Configure the protoc executable.
+    protoc {
+        // Download from the repository.
+        artifact = 'com.google.protobuf:protoc:3.21.1'
+    }
+
+    // Locate the codegen plugins.
+    plugins {
+        // Locate a plugin with name 'grpc'.
+        grpc {
+            // Download from the repository.
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.48.0'
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet('main')*.plugins {
+            grpc {}
+        }
+    }
+}
+
 dependencies {
+    // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-grpc
+    implementation 'com.linecorp.armeria:armeria-grpc:1.20.2'
+    // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-protobuf
+    implementation 'com.linecorp.armeria:armeria-protobuf:1.20.2'
+    // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-grpc-protocol
+    //runtimeOnly 'com.linecorp.armeria:armeria-grpc-protocol:1.20.2'
+
+
+
     // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-spring-boot2-starter
     implementation 'com.linecorp.armeria:armeria-spring-boot2-starter:1.20.2'
     // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-spring-boot2-webflux-starter

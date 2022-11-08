@@ -3,9 +3,6 @@ armeria:
     - port: 8888
       protocols:
         - http
-    - port: 9999
-      protocols:
-        - http
 
 server:
   port: 8888
