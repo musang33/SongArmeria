@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group 'org.example'
@@ -10,17 +12,25 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-spring-boot2-starter
+    implementation 'com.linecorp.armeria:armeria-spring-boot2-starter:1.20.2'
+    // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria-spring-boot2-webflux-starter
+    implementation 'com.linecorp.armeria:armeria-spring-boot2-webflux-starter:1.20.2'
+
     // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria
     implementation 'com.linecorp.armeria:armeria:1.20.1'
 
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation 'org.slf4j:slf4j-api:2.0.3'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
-    implementation 'ch.qos.logback:logback-core:1.4.4'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-    implementation 'ch.qos.logback:logback-classic:1.4.4'
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.10'
+    runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.36'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

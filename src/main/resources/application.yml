@@ -1,0 +1,23 @@
+armeria:
+  ports:
+    - port: 8888
+      protocols:
+        - http
+    - port: 9999
+      protocols:
+        - http
+
+server:
+  port: 8888
+  servlet:
+    encoding:
+      force-response: true
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/springtestbyinitializr
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: create
