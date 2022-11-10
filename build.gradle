@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id "com.google.protobuf" version "0.8.18"
     id 'org.springframework.boot' version '2.7.5'
+    id "com.google.cloud.tools.jib" version "3.3.1"
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -11,6 +12,26 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+jib {
+    from {
+        image = "eclipse-temurin:17-jre-alpine"
+    }
+    to {
+        image = "song_armeria"
+        tags = ["latest", "${project.name}-${project.version}".toString()]
+    }
+    container {
+        creationTime = "USE_CURRENT_TIMESTAMP"
+        // Set JVM options.
+        jvmFlags = ['-XX:+UseContainerSupport', '-Dserver.port=8888', '-Dfile.encoding=UTF-8']
+        // Expose different port.
+        ports = ['8888']
+        // Add labels.
+        labels = [maintainer: 'kevin <underbell.park@gmail.com>']
+        user = "nobody:nogroup"
+    }
 }
 
 protobuf {
@@ -28,6 +49,7 @@ protobuf {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.48.0'
         }
     }
+    //generatedFilesBaseDir = "$projectDir/src/protobuf"
     generateProtoTasks {
         ofSourceSet('main')*.plugins {
             grpc {}
@@ -53,13 +75,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.linecorp.armeria/armeria
     implementation 'com.linecorp.armeria:armeria:1.20.1'
 
-    implementation 'org.springframework.boot:spring-boot-starter-mustache'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mustache:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.5'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 
-    runtimeOnly 'ch.qos.logback:logback-classic:1.2.10'
-    runtimeOnly 'org.slf4j:log4j-over-slf4j:1.7.36'
+    runtimeOnly 'ch.qos.logback:logback-classic'
+    runtimeOnly 'org.slf4j:log4j-over-slf4j'
 
 
     compileOnly 'org.projectlombok:lombok:1.18.22'

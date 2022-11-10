@@ -18,7 +18,16 @@ public class GrpcBlogService extends BlogServiceGrpc.BlogServiceImplBase{
     @Override
     public void createBlogPost(CreateBlogPostRequest request,
                                StreamObserver<BlogPostM> responseObserver) {
-        postsService.save(new PostsRequestDto(request.getTitle(), request.getContent()));
+        final var id = postsService.save(new PostsRequestDto(request.getTitle(), request.getContent()));
+        final var postsResponseDto = postsService.findById(id);
+
+        responseObserver.onNext(BlogPostM.newBuilder()
+                .setId(postsResponseDto.getId())
+                .setTitle(postsResponseDto.getTitle())
+                .setContent(postsResponseDto.getContent())
+                .setModifiedAt(postsResponseDto.getLastModifiedAt().getSecond())
+                .build());
+        responseObserver.onCompleted();
     }
 
 }

@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:mariadb://host.docker.internal:3306/springtestbyinitializr
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: create

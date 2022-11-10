@@ -7,7 +7,7 @@ option java_multiple_files = true;
 import "google/protobuf/empty.proto";
 
 message BlogPostM {
-  int32 id = 1;
+  int64 id = 1;
   string title = 2;
   string content = 3;
   int64 createdAt = 4;
@@ -28,7 +28,7 @@ message CreateBlogPostRequest {
 }
 
 message GetBlogPostRequest {    // For retrieving a single post
-  int32 id = 1;
+  int64 id = 1;
 }
 
 message ListBlogPostsRequest {  // For retrieving multiple posts
@@ -36,13 +36,13 @@ message ListBlogPostsRequest {  // For retrieving multiple posts
 }
 
 message UpdateBlogPostRequest {
-  int32 id = 1;
+  int64 id = 1;
   string title = 2;
   string content = 3;
 }
 
 message DeleteBlogPostRequest {
-  int32 id = 1;
+  int64 id = 1;
 }
 
 message ListBlogPostsResponse {
