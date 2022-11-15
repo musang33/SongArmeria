@@ -19,13 +19,13 @@ jib {
         image = "eclipse-temurin:17-jre-alpine"
     }
     to {
-        image = "song_armeria"
+        image = "356902065329.dkr.ecr.ap-northeast-2.amazonaws.com/song"
         tags = ["latest", "${project.name}-${project.version}".toString()]
     }
     container {
         creationTime = "USE_CURRENT_TIMESTAMP"
         // Set JVM options.
-        jvmFlags = ['-XX:+UseContainerSupport', '-Dserver.port=8888', '-Dfile.encoding=UTF-8']
+        jvmFlags = ['-XX:+UseContainerSupport', '-Dserver.port=8888', '-Dfile.encoding=UTF-8','-Dspring.profiles.active=prod']
         // Expose different port.
         ports = ['8888']
         // Add labels.
