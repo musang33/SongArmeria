@@ -6,6 +6,7 @@ import com.linecorp.armeria.common.grpc.GrpcSerializationFormats;
 import com.linecorp.armeria.server.HttpServiceWithRoutes;
 import com.linecorp.armeria.server.docs.DocService;
 import com.linecorp.armeria.server.grpc.GrpcService;
+import com.linecorp.armeria.server.healthcheck.HealthCheckService;
 import com.linecorp.armeria.spring.ArmeriaAutoConfiguration;
 import com.linecorp.armeria.spring.ArmeriaServerConfigurator;
 import io.grpc.protobuf.services.ProtoReflectionService;
@@ -23,6 +24,8 @@ public class ArmeriaConfig {
             // Add DocService that enables you to send Thrift and gRPC requests from web browser.
             builder.serviceUnder("/docs", new DocService());
             builder.service(grpcService);
+            // Add HealthCheck service
+            builder.service("/health", HealthCheckService.of());
             // Log every message which the server receives and responds.
             //builder.decorator(LoggingService.newDecorator());
 
