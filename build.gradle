@@ -28,9 +28,6 @@ jib {
         jvmFlags = ['-XX:+UseContainerSupport', '-Dserver.port=8888', '-Dfile.encoding=UTF-8','-Dspring.profiles.active=prod']
         // Expose different port.
         ports = ['8888']
-        // Add labels.
-        labels = [maintainer: 'kevin <underbell.park@gmail.com>']
-        user = "nobody:nogroup"
     }
 }
 
