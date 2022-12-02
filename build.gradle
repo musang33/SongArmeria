@@ -46,7 +46,7 @@ protobuf {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.48.0'
         }
     }
-    //generatedFilesBaseDir = "$projectDir/src/protobuf"
+    generatedFilesBaseDir = "$projectDir/src/main/generatedProtobuf"
     generateProtoTasks {
         ofSourceSet('main')*.plugins {
             grpc {}
